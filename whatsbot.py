@@ -43,20 +43,19 @@ def buscarContacto(contacto):
 
 
 def regulacionChat(contacto, condicion):
+    global hiloEnUso
     while(True):
         with condicion:
-            #Esperar que otros hilos se ejecuten
-            # if(hiloEnUso==True):
-            #     condicion.wait()
-            #Pedir mi turno de ejecucion (hilo)
-            # hiloEnUso =True
+            # Esperar que otros hilos se ejecuten
+            print("Soy ", contacto, " y el hiloEnUso esta ", hiloEnUso)
+            if(hiloEnUso):
+                condicion.wait()
+            hiloEnUso =True
             buscarContacto(contacto)
-            # hiloEnUso = False
-            #condicion.notifyAll()
-
-
-
-
+            hiloEnUso = False
+            condicion.notifyAll()
+            sleep(3)
+            
 
 
 
